@@ -13,16 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Parse scripts and run focused tests
-        shell: ${{ matrix.shell }}
+        shell: pwsh
         run: |
-          $ErrorActionPreference = 'Stop'
-          Get-ChildItem scripts,tests -Filter *.ps1 -Recurse | ForEach-Object {
-            $parseErrors = $null
-            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$null,[ref]$parseErrors) | Out-Null
-            if ($parseErrors) { throw ($parseErrors | Out-String) }
-          }
-          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-          Install-Module Pester -RequiredVersion 5.7.1 -Scope CurrentUser -Force -SkipPublisherCheck
-          Import-Module Pester -RequiredVersion 5.7.1 -Force
-          $result = Invoke-Pester -Path ./tests -PassThru
-          if ($result.FailedCount -gt 0 -or $result.PassedCount -lt 12) { throw 'Pester validation failed or tests were not discovered.' }
+          $testShell = '${{ matrix.shell }}'
+          & $testShell -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File ./tests/Invoke-CI.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
