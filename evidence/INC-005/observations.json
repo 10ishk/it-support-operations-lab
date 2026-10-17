@@ -1,0 +1,37 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Mode": "Read-only existing service observation; failure not induced or confirmed",
+  "Before": {
+    "Name": "wuauserv",
+    "State": "Stopped",
+    "StartMode": "Manual",
+    "ExitCode": 0
+  },
+  "Native": {
+    "Name": "wuauserv",
+    "State": "Stopped",
+    "StartType": "Manual"
+  },
+  "After": {
+    "Name": "wuauserv",
+    "State": "Stopped",
+    "StartMode": "Manual",
+    "ExitCode": 0
+  },
+  "ProjectChecks": [
+    {
+      "Name": "Services",
+      "Status": "WARNING"
+    },
+    {
+      "Name": "Windows Update Service",
+      "Status": "INFO"
+    }
+  ],
+  "IncludedInStoppedAutomaticList": false,
+  "ConfigurationUnchanged": true,
+  "ServiceCreated": false,
+  "ServiceStartedOrStopped": false,
+  "ConfirmedServiceFailure": false
+}

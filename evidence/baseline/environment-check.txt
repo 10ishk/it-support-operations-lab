@@ -1,0 +1,7 @@
+{
+  "At": "2026-10-17",
+  "OS": "Windows 11",
+  "CurrentPowerShell": "7",
+  "WindowsPowerShell": "5.1",
+  "Classification": "RESTRICTED TO NON-DESTRUCTIVE SIMULATION"
+}

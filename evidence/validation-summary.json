@@ -1,0 +1,19 @@
+{
+  "At": "2026-10-17",
+  "Results": [
+    {
+      "Invocation": "validation-pwsh",
+      "Passed": 16,
+      "Failed": 0,
+      "Summary": "Syntax, relative Markdown links, and 16 tests passed on PowerShell 7."
+    },
+    {
+      "Invocation": "validation-windows-powershell",
+      "Passed": 16,
+      "Failed": 0,
+      "Summary": "Syntax, relative Markdown links, and 16 tests passed on PowerShell 5.1."
+    }
+  ],
+  "RawLogs": "Ignored reports/lab-execution",
+  "ConsistencyTestsAreNotIndependentProvenance": true
+}

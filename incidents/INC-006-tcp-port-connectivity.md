@@ -1,35 +1,58 @@
-# INC-006 - TCP Port / Application Connectivity Problem
+# INC-006 - tcp port connectivity
 
-**Unexecuted guided exercise. Status: not started.** Category: TCP. Use the [template](../templates/incident-template.md).
+- Incident ID: INC-006
+- Date: 2026-10-17
+- Category: TCP/application connectivity
+- Priority: Low — controlled local scope
+- Status: Completed controlled listener failure; recovery and cleanup verified
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and controlled simulation
+## Reported / Simulated Symptom
 
-Compare a local listener with the same port after it is stopped. This uses an automatically selected loopback port; it exposes nothing on external interfaces and needs no firewall changes. Use a separate console for the test. Keep the listener console open until cleanup completes.
+The local TCP test failed after the loopback listener on dynamically selected port 59845 was stopped.
 
-```powershell
-# Listener console: record the displayed port for the test console.
-$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Loopback,0)
-$listener.Start()
-$listener.LocalEndpoint.Port
-```
+## Impact
 
-```powershell
-# Test console: enter the actual displayed port.
-$labPort = [int](Read-Host 'Loopback port displayed by the listener')
-Test-NetConnection -ComputerName localhost -Port $labPort
-```
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-## Rollback and diagnostic logic
+## Initial Observations
 
-In the listener console run `$listener.Stop()` immediately after the first test. Repeat the test against the same port. Record actual results; another process could acquire that port, and localhost can resolve to IPv6 first. If needed, use `[System.Net.IPAddress]::Loopback.ToString()` as the computer name to select IPv4. Always stop the listener, even if a test errors; closing its PowerShell process also releases it.
+A temporary IPv4 loopback-only listener was started; no external listener or firewall change.
 
-For a real external issue run `.\scripts\Invoke-NetworkDiagnostics.ps1 -Target github.com -Ports 443`. DNS success plus TCP failure narrows the problem to reachability, filtering, listener state or routing; it does not identify which one. No TLS or HTTP exchange is tested.
+## Diagnostic Steps
 
-## Actual evidence and resolution
+Native Test-NetConnection returned success=true while listening, success=false after stopping, and success=true after rebinding the same port. localhost resolved to 2 addresses. Explicit IPv4 loopback prevented IPv6 selection from obscuring the comparison.
 
-- Chosen port, timestamps, before/after results: <not collected>
-- Report/screenshot links: <not collected>
-- Root cause in controlled case: <confirm absence/presence of listener from actual observations>
-- Resolution: for the exercise, explain the expected closed port after cleanup. For a real service, verify listener/configuration with its owner, then retest TCP and application behavior.
+## Commands Used
 
-Reference: [KB002](../knowledge-base/KB002-network-connectivity.md).
+[Executed commands](../evidence/INC-006/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
+
+## Evidence
+
+- [Selected actual observations](../evidence/INC-006/observations.json)
+- [Sanitized output](../evidence/INC-006/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-006/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+The controlled listener was absent during the failed probe. Name resolution and TCP availability are separate conditions.
+
+## Resolution
+
+Restarted the lab-only listener on the same loopback port.
+
+## Verification
+
+Native TCP succeeded again. A bounded probe after final cleanup failed, confirming the listener was released.
+
+## Rollback / Cleanup
+
+Listener stopped in finally; CleanupVerified=true. This port is the observed ephemeral value, not a fixed production port.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB002](../knowledge-base/KB002-network-connectivity.md)

@@ -1,0 +1,37 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Mode": "Destination-scoped failure; no adapter or route modifications",
+  "ControlledDestination": "TEST-NET-3 documentation destination, literal withheld from published observations",
+  "ControlledPort": 65000,
+  "ControlledIcmpReplies": 1,
+  "ControlledTcp": {
+    "At": "2026-10-17",
+    "Connected": false,
+    "Error": "Connection timed out"
+  },
+  "RouteSelectionSucceeded": true,
+  "ComparisonChecks": [
+    {
+      "Name": "Adapter Configuration",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Default Gateway",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Internet Connectivity",
+      "Status": "PASS"
+    },
+    {
+      "Name": "DNS Resolution",
+      "Status": "PASS"
+    },
+    {
+      "Name": "TCP 443",
+      "Status": "PASS"
+    }
+  ],
+  "FailureScope": "Selected destination/port only; timeout does not identify a remote firewall or route cause"
+}

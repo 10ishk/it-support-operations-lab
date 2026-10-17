@@ -1,31 +1,58 @@
-# INC-005 - Windows Service Failure
+# INC-005 - service failure
 
-**Unexecuted guided exercise. Status: not started.** Category: services. Use the [template](../templates/incident-template.md).
+- Incident ID: INC-005
+- Date: 2026-10-17
+- Category: Services
+- Priority: Low — controlled local scope
+- Status: Completed read-only fallback; no service failure induced or confirmed
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and observation
+## Reported / Simulated Symptom
 
-An expected function appears unavailable. Investigate service state without stopping services or changing startup types. Stopped automatic services may use triggers or delayed startup and are not automatically broken. Do not stop security, update, storage or network services to manufacture a fault.
+An existing stopped service was observed; no service failure was induced or confirmed.
 
-## Diagnostic steps and commands
+## Impact
 
-```powershell
-.\scripts\Invoke-SupportDiagnostics.ps1 -Services
-Get-Service -Name wuauserv | Format-List Name,Status,StartType,ServicesDependedOn,DependentServices
-Get-CimInstance Win32_Service -Filter "Name='wuauserv'" | Select-Object Name,State,StartMode,ExitCode
-Get-WinEvent -FilterHashtable @{LogName='System'; ProviderName='Service Control Manager'; StartTime=(Get-Date).AddHours(-24)} -MaxEvents 30
-```
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-`wuauserv` is an observation example, not an instruction to keep it running. For an actual affected service, substitute its verified name. Correlate events, dependencies and application symptoms. Inspect credentials locally if relevant; never include them in evidence.
+## Initial Observations
 
-## Actual evidence
+wuauserv: State=Stopped, StartMode=Manual, ExitCode=0. The restricted execution scope excluded temporary service creation.
 
-- Affected function/service and expected state: <not established>
-- Startup configuration, dependency states, exit code and events: <not collected>
-- Report/screenshot links: <not collected>
-- Possible causes: trigger behavior, dependency failure, invalid configuration or permission issue; <unconfirmed>.
+## Diagnostic Steps
 
-## Resolution and verification
+Get-Service agreed with CIM. The project collector reported other stopped automatic services as WARNING and Windows Update as INFO. This manual service was not included in the stopped-automatic-service list.
 
-Only start or reconfigure a service after confirming expected behavior and authorization. Record the original state/configuration, apply the documented fix, and test the consuming application. A running service alone does not prove recovery. Escalate repeated start failures with sanitized event details.
+## Commands Used
 
-Rollback: no changes in this exercise. Any separately authorized repair must document how to restore original configuration before it is attempted. Reference: [KB005](../knowledge-base/KB005-windows-services.md).
+[Executed commands](../evidence/INC-005/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
+
+## Evidence
+
+- [Selected actual observations](../evidence/INC-005/observations.json)
+- [Sanitized output](../evidence/INC-005/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-005/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+No service failure was established. Manual/trigger behavior is a possible explanation, not a confirmed cause. No affected update operation was tested, so update health remains unproven.
+
+## Resolution
+
+No service repair was justified; preserved state/configuration. This completes the authorized read-only fallback, not a manufactured service failure.
+
+## Verification
+
+Before/after ConfigurationUnchanged=true; IncludedInStoppedAutomaticList=false. No service was created, started or stopped.
+
+## Rollback / Cleanup
+
+Service state/configuration matched both immediately after the case and at final verification. An induced service-failure case remains outside this restricted run.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB005](../knowledge-base/KB005-windows-services.md)

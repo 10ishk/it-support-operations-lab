@@ -1,0 +1,5 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+.\scripts\Invoke-BackupRestoreTest.ps1 -OutputDirectory $ignoredBackupRoot -FailOnMismatch -Redact
+$backup.Checks[0].Data | Format-List

@@ -1,0 +1,13 @@
+{
+  "At": "2026-10-17",
+  "NetworkConfigurationUnchanged": true,
+  "CanonicalInputsUnchanged": true,
+  "ObservedServiceUnchanged": true,
+  "WorkloadRemoved": true,
+  "ListenerClosed": true,
+  "IntegrityRepairVerified": true,
+  "SystemConfigurationChangesMade": false,
+  "SourcesRegistered": false,
+  "AuditEventsRetained": true,
+  "RawArtifacts": "Ignored reports/lab-execution directories; backup copies intentionally retained locally, never published"
+}

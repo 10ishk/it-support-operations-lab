@@ -1,33 +1,58 @@
-# INC-002 - Network Connectivity Problem
+# INC-002 - network connectivity
 
-**Unexecuted guided exercise. Status: not started.** Category: networking. Use the [template](../templates/incident-template.md) to record actual impact and environment.
+- Incident ID: INC-002
+- Date: 2026-10-17
+- Category: Networking
+- Priority: Low — controlled local scope
+- Status: Completed destination/port failure; healthy comparison verified
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and safe simulation
+## Reported / Simulated Symptom
 
-A VM loses external connectivity. Use the VM's local console, take a snapshot if available, and record its current virtual NIC attachment. Disconnect only the disposable VM's virtual network cable using the hypervisor. Never disable the host's physical adapter or perform this through a remote session.
+A bounded TCP connection to a documentation-only destination on port 65000 timed out.
 
-## Diagnostic steps and commands
+## Impact
 
-Run once before disconnection and once after it:
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-```powershell
-Get-NetAdapter
-Get-NetIPConfiguration
-Get-NetRoute -AddressFamily IPv4 -DestinationPrefix '0.0.0.0/0'
-.\scripts\Invoke-NetworkDiagnostics.ps1 -OutputDirectory .\reports\connectivity-exercise
-```
+## Initial Observations
 
-Expected logic: an absent usable link or configuration supports a local connectivity fault. If a link remains up, inspect routing and the virtual network mode. Failed ICMP alone does not establish an outage. Record which tests are unavailable and why; DNS cache may affect observations.
+Local IP configuration and routes were collected locally; published evidence omits addresses and interface identifiers.
 
-## Actual evidence
+## Diagnostic Steps
 
-- Date, VM network mode, original attachment: <not recorded>
-- Adapter, gateway, DNS and TCP findings before/after: <not collected>
-- Report/screenshot links: <not collected>
-- Possible cause: disconnected virtual cable; confirm from observations rather than assuming.
+Route selection succeeded: true. ICMP response count: 1. Controlled TCP Connected=false, Error="Connection timed out" with a 750 ms deadline. All five valid-target comparison checks passed.
 
-## Rollback, resolution and verification
+## Commands Used
 
-Reconnect the same virtual NIC to its original virtual network in the hypervisor. Confirm the link and address return, then rerun the diagnostics and an intended application request. If renewal is needed, use the VM console and document the affected interface before requesting DHCP renewal. Restore the snapshot only if ordinary reconnection fails and losing later VM changes is acceptable.
+[Executed commands](../evidence/INC-002/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
 
-Record restoration of the original attachment as part of closure. Reference: [KB002](../knowledge-base/KB002-network-connectivity.md).
+## Evidence
+
+- [Selected actual observations](../evidence/INC-002/observations.json)
+- [Sanitized output](../evidence/INC-002/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-002/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+The selected TCP endpoint did not respond before the deadline. The remote routing/filtering/listener cause is unconfirmed. ICMP did respond, so a blanket assertion that the destination was unreachable would be wrong.
+
+## Resolution
+
+Stopped using the deliberately selected failing destination; compared the intended valid application target. No adapter or route repair was needed.
+
+## Verification
+
+Configuration, gateway, public ICMP, DNS and comparison TCP 443 all passed. A destination/port failure can coexist with working local connectivity.
+
+## Rollback / Cleanup
+
+Read-only probes only. Final network snapshots matched.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB002](../knowledge-base/KB002-network-connectivity.md)

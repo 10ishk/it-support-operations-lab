@@ -1,0 +1,11 @@
+[
+  {
+    "At": "2026-10-17",
+    "Log": "Windows PowerShell",
+    "Provider": "PowerShell",
+    "EventId": 9001,
+    "Level": "Error",
+    "MessageRenderingAvailable": false,
+    "EventDataMessage": "ITSupportLab controlled application error [preflight marker withheld]"
+  }
+]

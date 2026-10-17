@@ -1,31 +1,58 @@
-# INC-004 - Storage or Performance Investigation
+# INC-004 - storage performance
 
-**Unexecuted guided exercise. Status: not started.** Category: performance. Use the [template](../templates/incident-template.md).
+- Incident ID: INC-004
+- Date: 2026-10-17
+- Category: Performance
+- Priority: Low — controlled local scope
+- Status: Completed bounded workload; cleanup verified
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and observation
+## Reported / Simulated Symptom
 
-Investigate a slow operation or establish a baseline in an idle VM. Do not fill the system disk, allocate excessive memory or run a stress loop. If there is no slowdown, record a baseline, not a resolved performance fault.
+A bounded PowerShell child consumed CPU while a two MiB disposable file existed.
 
-## Diagnostic steps and commands
+## Impact
 
-```powershell
-.\scripts\Invoke-SupportDiagnostics.ps1 -System -TopProcesses 10
-Get-Volume | Select-Object DriveLetter,FileSystemLabel,Size,SizeRemaining
-Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 10 Id,ProcessName,WorkingSet64,CPU
-resmon.exe
-```
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-Reproduce the normal affected task and compare measurements with idle values. Use Resource Monitor for current CPU, memory pressure, disk activity and response time. Script CPU values are cumulative seconds, so an old process can rank highly without consuming much CPU now. Low free disk space is a clue; it does not measure storage latency.
+## Initial Observations
 
-## Actual evidence
+Memory, volume and filesystem-drive observations were collected; precise host measurements are withheld. No whole-machine slowdown or disk exhaustion was asserted.
 
-- Affected task, timing, VM CPU/memory allocation: <not recorded>
-- Baseline and during-task observations: <not collected>
-- Report/screenshot links: <not collected>
-- Possible causes: resource pressure, low space, background activity or host contention; <unconfirmed>.
+## Diagnostic Steps
 
-## Resolution and verification
+CPU activity was observed in the owned child while the two MiB disposable file existed. The child completed its approximately three-second bounded workload.
 
-Identify the owner of resource-heavy processes before closing anything. Review disposable files before manual cleanup and retain recoverable copies. Adjust VM resources only after recording original allocations. Repeat the same task and compare response time under similar conditions.
+## Commands Used
 
-Rollback: read-only observation needs none; if changing VM allocation, restore the recorded values through the hypervisor. This exercise prescribes no deletion or service changes. Reference: [KB004](../knowledge-base/KB004-performance-troubleshooting.md).
+[Executed commands](../evidence/INC-004/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
+
+## Evidence
+
+- [Selected actual observations](../evidence/INC-004/observations.json)
+- [Sanitized output](../evidence/INC-004/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-004/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+The explicitly launched workload explains its own resource use. A baseline warning on a small low-free-space volume does not establish a performance root cause.
+
+## Resolution
+
+Allowed the child to finish; finally removed only the generated leaf files and empty workload directory.
+
+## Verification
+
+ChildExited=true; TemporaryFileExists=false; CleanupVerified=true. Precise host memory measurements are withheld; background activity precludes diagnosing a memory leak from this comparison.
+
+## Rollback / Cleanup
+
+Owned child exited; workload directory absent. No recursive deletion, canonical input edit or resource-configuration change.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB004](../knowledge-base/KB004-performance-troubleshooting.md)

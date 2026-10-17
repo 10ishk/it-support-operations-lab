@@ -1,0 +1,9 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+Get-NetIPConfiguration
+Get-NetRoute
+Test-Connection -ComputerName $DocumentationDestination -Count 1
+Test-NetConnection -ComputerName $DocumentationDestination -DiagnoseRouting -InformationLevel Detailed
+Test-ExecutionTcp $DocumentationDestination 65000
+.\scripts\Invoke-NetworkDiagnostics.ps1 -Target github.com -Ports 443

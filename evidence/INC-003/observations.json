@@ -1,0 +1,32 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Mode": "Real marked test events, existing provider; no crash or source registration",
+  "Events": [
+    {
+      "At": "2026-10-17",
+      "Log": "Windows PowerShell",
+      "Provider": "PowerShell",
+      "EventId": 9002,
+      "Level": "Information",
+      "MessageRenderingAvailable": false,
+      "EventDataMessage": "ITSupportLab controlled application error [correlation marker withheld] | Corrective action: controlled test completed; no application fault asserted."
+    },
+    {
+      "At": "2026-10-17",
+      "Log": "Windows PowerShell",
+      "Provider": "PowerShell",
+      "EventId": 9001,
+      "Level": "Error",
+      "MessageRenderingAvailable": false,
+      "EventDataMessage": "ITSupportLab controlled application error [correlation marker withheld]"
+    }
+  ],
+  "Error": null,
+  "ErrorCollected": true,
+  "CompletionCollected": true,
+  "SourceCreated": false,
+  "LogsCleared": false,
+  "AuditRecordsRetained": true,
+  "RenderingNote": "Chosen lab IDs may lack provider message templates; EventData is captured from actual event properties/XML, never invented as a rendered message."
+}

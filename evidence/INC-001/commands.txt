@@ -1,0 +1,10 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+Get-DnsClientServerAddress -AddressFamily IPv4
+Resolve-DnsName support-lab.invalid -Type A -DnsOnly
+Test-Connection -ComputerName $PublicProbe -Count 1
+Resolve-DnsName github.com -Type A -DnsOnly
+Test-NetConnection github.com -Port 443
+.\scripts\Invoke-NetworkDiagnostics.ps1 -Target support-lab.invalid -Ports 443
+.\scripts\Invoke-NetworkDiagnostics.ps1 -Target github.com -Ports 443

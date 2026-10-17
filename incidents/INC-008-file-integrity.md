@@ -1,40 +1,64 @@
-# INC-008 - File Integrity Verification
+# INC-008 - file integrity
 
-**Unexecuted guided exercise. Status: not started.** Category: integrity. Use the [template](../templates/incident-template.md).
+- Incident ID: INC-008
+- Date: 2026-10-17
+- Category: File integrity
+- Priority: Low — controlled local scope
+- Status: Completed mismatch detection; matching content restored
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and safe simulation
+## Reported / Simulated Symptom
 
-Demonstrate how a content change appears in SHA-256 verification. Run INC-007 first; modify only its restored disposable text file. The existing report describes the earlier verification time and will not automatically change when a file is later edited.
+Appended one deliberate lab line to a restored disposable notes.txt copy.
 
-```powershell
-$result = .\scripts\Invoke-BackupRestoreTest.ps1 -FailOnMismatch
-$original = Join-Path $PWD 'lab-data\notes.txt'
-$backup = Join-Path $result.ArtifactDirectory 'backup\notes.txt'
-$restored = Join-Path $result.ArtifactDirectory 'restore\notes.txt'
-Get-FileHash -LiteralPath $original,$backup,$restored -Algorithm SHA256
-Add-Content -LiteralPath $restored -Value 'Controlled lab modification.'
-$beforeRepair = Get-FileHash -LiteralPath $original,$backup,$restored -Algorithm SHA256
-$beforeRepair | Format-List Path,Hash
-```
+## Impact
 
-## Diagnostic logic and actual evidence
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-The newly calculated restored digest should differ after the edit. Confirm it from actual output. A mismatch proves different content, not malware or the cause of the difference.
+## Initial Observations
 
-- Date, baseline digests and post-edit digests: <not collected>
-- Report/screenshot links: <not collected>
-- Confirmed cause: <record only after observing the deliberate edit and mismatch>
-- Impact: disposable restored copy only; <confirm original remained unchanged>.
+Copied canonical text into an ignored disposable source; existing backup script confirmed the initial restored digest matched.
 
-## Resolution, verification and rollback
+## Diagnostic Steps
 
-Restore only the modified disposable copy from the backup and calculate fresh hashes:
+Original SHA-256: `5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B`.
 
-```powershell
-Copy-Item -LiteralPath $backup -Destination $restored -Force
-$afterRepair = Get-FileHash -LiteralPath $original,$backup,$restored -Algorithm SHA256
-$afterRepair | Format-List Path,Hash
-@($afterRepair.Hash | Select-Object -Unique).Count -eq 1
-```
+Changed SHA-256: `CC43AB44578F3295D38C11249854C1554CC44157863DF0B0F6D0A2AD9AAB99C5`.
 
-Record the actual comparison result and open the restored text. Keep the original run report plus separately timestamped mismatch/repair observations. Rollback is the copy command above; no original input is changed. Reference: [KB006](../knowledge-base/KB006-backup-integrity.md).
+Restored SHA-256: `5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B`.
+
+Mismatch measured at 2026-10-17; repair measured at 2026-10-17.
+
+## Commands Used
+
+[Executed commands](../evidence/INC-008/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
+
+## Evidence
+
+- [Selected actual observations](../evidence/INC-008/observations.json)
+- [Sanitized output](../evidence/INC-008/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-008/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+The explicit appended line changed the disposable restored content. The mismatch does not establish malware or storage failure.
+
+## Resolution
+
+Copied the verified backup over the changed restore in finally, then calculated a fresh hash.
+
+## Verification
+
+MismatchDetected=true; FinalVerification=true. Original, backup and repaired restore digests matched.
+
+## Rollback / Cleanup
+
+The deliberate edit was reversed. Only ignored disposable copies remain locally. Canonical lab-data was never edited and independently matched final hashes.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB006](../knowledge-base/KB006-backup-integrity.md)

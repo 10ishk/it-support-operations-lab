@@ -1,0 +1,43 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Status": "PASS",
+  "SourceFileCount": 4,
+  "BackupDestination": "Ignored unique run directory / backup",
+  "RestoreDestination": "Same ignored run directory / restore",
+  "Files": [
+    {
+      "File": "inventory.csv",
+      "OriginalHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "BackupHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "RestoredHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "Status": "PASS",
+      "Detail": ""
+    },
+    {
+      "File": "notes.txt",
+      "OriginalHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "BackupHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "RestoredHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "Status": "PASS",
+      "Detail": ""
+    },
+    {
+      "File": "README.md",
+      "OriginalHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "BackupHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "RestoredHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "Status": "PASS",
+      "Detail": ""
+    },
+    {
+      "File": "config\\settings.ini",
+      "OriginalHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "BackupHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "RestoredHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "Status": "PASS",
+      "Detail": ""
+    }
+  ],
+  "VerifiedFileCount": 4
+}

@@ -1,0 +1,12 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+Copy-Item -LiteralPath .\lab-data\notes.txt -Destination $disposableSource
+.\scripts\Invoke-BackupRestoreTest.ps1 -SourceDirectory $disposableDirectory -OutputDirectory $ignoredBackupRoot -FailOnMismatch -Redact
+Get-FileHash -LiteralPath $original,$backup,$restored -Algorithm SHA256
+Add-Content -LiteralPath $restored -Value 'ITSupportLab deliberate disposable content change.'
+Get-FileHash -LiteralPath $restored -Algorithm SHA256
+Test-LabHashMatch $originalHash $backupHash $changedHash
+Copy-Item -LiteralPath $backup -Destination $restored -Force
+Get-FileHash -LiteralPath $restored -Algorithm SHA256
+Test-LabHashMatch $originalHash $backupHash $restoredHash

@@ -1,0 +1,12 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+$listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback,0)
+$listener.Start(); $port = $listener.LocalEndpoint.Port
+Test-NetConnection -ComputerName ([Net.IPAddress]::Loopback.ToString()) -Port $port
+[Net.Dns]::GetHostAddresses('localhost')
+$listener.Stop()
+Test-NetConnection -ComputerName ([Net.IPAddress]::Loopback.ToString()) -Port $port
+$listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback,$port); $listener.Start()
+Test-NetConnection -ComputerName ([Net.IPAddress]::Loopback.ToString()) -Port $port
+$listener.Stop()

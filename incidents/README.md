@@ -1,6 +1,8 @@
-# Guided incidents
+# Executed controlled incidents
 
-These are **unexecuted guided exercises**, not resolved tickets or captured evidence. Copy the [incident template](../templates/incident-template.md) for each run and retain the exercise's instructions separately from observations. No case here asserts a confirmed root cause.
+These reports document actual execution on 2026-10-17 using isolated resources in a Windows environment. Execution was **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**. The service case is a completed observation fallback; it does not claim a service failure was induced. Each report links selected actual evidence and states what the observations do and do not establish.
+
+Use the [runner](../scripts/Invoke-ControlledLab.ps1) to reproduce the safe scenarios and the [incident template](../templates/incident-template.md) for a new dated record. Do not present an earlier run's observations as a fresh measurement. [Execution results](../docs/EXECUTION-RESULTS.md) and [evidence index](../evidence/README.md) explain scope and privacy.
 
 | Exercise | Focus |
 | --- | --- |

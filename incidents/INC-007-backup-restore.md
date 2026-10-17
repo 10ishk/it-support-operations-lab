@@ -1,32 +1,58 @@
-# INC-007 - Backup and Restore Case
+# INC-007 - backup restore
 
-**Unexecuted guided exercise. Status: not started.** Category: backup. Use the [template](../templates/incident-template.md).
+- Incident ID: INC-007
+- Date: 2026-10-17
+- Category: Backup
+- Priority: Low — controlled local scope
+- Status: Completed content recovery; every file verified
+- Environment: Windows 11; PowerShell 7; restricted execution. **RESTRICTED TO NON-DESTRUCTIVE SIMULATION**.
 
-## Scenario and safe exercise
+## Reported / Simulated Symptom
 
-Prove that disposable lab files can be copied and recovered into a different directory. Do not delete source files or simulate a disaster on the host.
+Recover the supplied harmless lab files into separate directories without deleting originals.
 
-```powershell
-$result = .\scripts\Invoke-BackupRestoreTest.ps1 -FailOnMismatch
-$result.Checks | Select-Object Name,Status
-$result.Checks[0].Data | Format-Table File,OriginalHash,BackupHash,RestoredHash,Status
-Invoke-Item $result.ArtifactDirectory
-```
+## Impact
 
-## Diagnostic logic
+Confined to the described lab probes, marked events and disposable resources. No organizational or production outage is claimed.
 
-The script calculates original hashes, creates a unique run directory, copies and hashes backup content, restores from that backup, and hashes restored content. Inspect the TXT/JSON report and open a restored text file. PASS requires every file to match across all three hashes. An empty source is rejected. Access/copy/hash errors cannot yield PASS.
+## Initial Observations
 
-## Actual evidence
+Source inventory contained 4 files, including the nested configuration.
 
-- File count and source description: <not collected>
-- Run date, backup/restore relative paths: <not recorded>
-- Hash table, status, readable restored content: <not collected>
-- Report/screenshot links: <not collected>
-- Root cause if a failure occurs: <unconfirmed; investigate errors before retrying>.
+## Diagnostic Steps
 
-## Resolution, verification and rollback
+Existing backup script hashed originals, copied and hashed backup files, restored from those backups into a distinct directory, and hashed restored content. Complete per-file digests are published in observations.json.
 
-If verification fails, keep the failed report, examine path/space/access issues, and rerun into a fresh directory after repair. Do not overwrite a failed run. Compare file count and every relative name, not just one matching hash.
+## Commands Used
 
-Rollback: originals are unchanged. After evidence review, manually remove only the identified generated run directory if no longer needed. This is a content-copy exercise, not a system recovery or metadata backup. Reference: [KB006](../knowledge-base/KB006-backup-integrity.md).
+[Executed commands](../evidence/INC-007/commands.txt) and [reproducible runner](../scripts/Invoke-ControlledLab.ps1). Variables preserve the actual command sequence while withholding machine addresses and paths.
+
+## Evidence
+
+- [Selected actual observations](../evidence/INC-007/observations.json)
+- [Sanitized output](../evidence/INC-007/sanitized-output.txt)
+- [Evidence summary](../evidence/INC-007/evidence-summary.md)
+
+Raw records remain ignored locally. These are selected measurements, not complete terminal transcripts.
+
+## Root Cause
+
+No unexpected fault occurred. This is recovery verification, not recovery from lost user data.
+
+## Resolution
+
+Created verified backup and restored copies using -FailOnMismatch and -Redact.
+
+## Verification
+
+Status=PASS; 4/4 files matched all three SHA-256 digests.
+
+## Rollback / Cleanup
+
+Copies remain only in ignored local run folders for inspection; none are published. Original inputs independently matched final hashes. No ACL, alternate-stream or application-consistency claim.
+
+[Final cleanup verification](../evidence/cleanup-verification.json). [Screenshot capture limitations](../screenshots/AUTOMATION-NOTES.md).
+
+## Knowledge Base Reference
+
+[KB006](../knowledge-base/KB006-backup-integrity.md)

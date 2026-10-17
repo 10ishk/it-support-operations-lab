@@ -1,0 +1,11 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+Get-CimInstance Win32_OperatingSystem
+Get-Volume
+Get-PSDrive -PSProvider FileSystem
+[IO.File]::WriteAllBytes($temporaryFile,(New-Object byte[] (2MB)))
+Start-Process -FilePath $PowerShellExecutable -ArgumentList $boundedWorkloadArguments -WindowStyle Hidden -PassThru
+Get-Process -Id $ownedProcess.Id
+Get-CimInstance Win32_OperatingSystem
+Remove-Item -LiteralPath $exactGeneratedFile

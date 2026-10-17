@@ -1,0 +1,7 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+[Diagnostics.EventLog]::SourceExists('PowerShell')
+[Diagnostics.EventLog]::WriteEntry('PowerShell',$marker,[Diagnostics.EventLogEntryType]::Error,9001)
+[Diagnostics.EventLog]::WriteEntry('PowerShell',$completionMessage,[Diagnostics.EventLogEntryType]::Information,9002)
+Get-WinEvent -FilterHashtable @{LogName='Windows PowerShell'; Id=9001,9002; StartTime=$eventStart.AddSeconds(-2)}

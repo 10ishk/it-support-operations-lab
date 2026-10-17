@@ -1,0 +1,4 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+.\scripts\Invoke-SupportDiagnostics.ps1 -Full -Redact

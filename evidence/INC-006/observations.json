@@ -1,0 +1,23 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Mode": "Loopback-only temporary listener, no firewall changes",
+  "Port": 59845,
+  "LocalhostResolvedAddressCount": 2,
+  "Listening": {
+    "At": "2026-10-17",
+    "TcpTestSucceeded": true
+  },
+  "Stopped": {
+    "TcpTestSucceeded": false
+  },
+  "Restarted": {
+    "TcpTestSucceeded": true
+  },
+  "Cleanup": {
+    "At": "2026-10-17",
+    "Connected": false,
+    "Error": "Connection timed out"
+  },
+  "CleanupVerified": true
+}

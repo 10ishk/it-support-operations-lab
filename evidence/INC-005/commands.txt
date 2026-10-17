@@ -1,0 +1,7 @@
+Commands executed by scripts/Invoke-ControlledLab.ps1.
+Variable names below stand for values selected/computed during the run; identifying values are withheld.
+
+Get-Service -Name wuauserv
+Get-CimInstance Win32_Service -Filter "Name='wuauserv'"
+.\scripts\Invoke-SystemHealth.ps1 -Scope Services
+Get-CimInstance Win32_Service -Filter "Name='wuauserv'"

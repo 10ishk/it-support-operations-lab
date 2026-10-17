@@ -1,0 +1,127 @@
+{
+  "At": "2026-10-17",
+  "OS": "Windows 11",
+  "Checks": [
+    {
+      "Name": "System Overview",
+      "Status": "INFO"
+    },
+    {
+      "Name": "System Health - Memory",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Storage",
+      "Status": "WARNING"
+    },
+    {
+      "Name": "Processes",
+      "Status": "INFO"
+    },
+    {
+      "Name": "Network Adapter Status",
+      "Status": "INFO"
+    },
+    {
+      "Name": "Services",
+      "Status": "WARNING"
+    },
+    {
+      "Name": "Windows Update Service",
+      "Status": "INFO"
+    },
+    {
+      "Name": "Event Logs - System",
+      "Status": "WARNING"
+    },
+    {
+      "Name": "Event Logs - Application",
+      "Status": "WARNING"
+    },
+    {
+      "Name": "Adapter Configuration",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Default Gateway",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Internet Connectivity",
+      "Status": "PASS"
+    },
+    {
+      "Name": "DNS Resolution",
+      "Status": "PASS"
+    },
+    {
+      "Name": "TCP 80",
+      "Status": "PASS"
+    },
+    {
+      "Name": "TCP 443",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Backup Verification",
+      "Status": "PASS"
+    }
+  ],
+  "Memory": {
+    "Status": "PASS",
+    "Summary": "Memory utilization within the configured threshold"
+  },
+  "Storage": {
+    "Status": "WARNING",
+    "Summary": "One volume triggered the configured low-space warning"
+  },
+  "Services": {
+    "Status": "WARNING",
+    "Summary": "Automatic services requiring investigation were detected"
+  },
+  "UpdateService": {
+    "Name": "wuauserv",
+    "Status": "Stopped",
+    "StartType": "Manual"
+  },
+  "EventCounts": [
+    {
+      "Check": "Event Logs - System",
+      "Status": "WARNING"
+    },
+    {
+      "Check": "Event Logs - Application",
+      "Status": "WARNING"
+    }
+  ],
+  "BackupFiles": [
+    {
+      "File": "inventory.csv",
+      "OriginalHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "BackupHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "RestoredHash": "261A021FBC3900E1FB486B67BC060838A86FE786DFA93E2358BB09D211610BA3",
+      "Status": "PASS"
+    },
+    {
+      "File": "notes.txt",
+      "OriginalHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "BackupHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "RestoredHash": "5B8FD4D33015D4806F79FE2E2236EFD3CA906CE0333CB96E31CF38FC37D7672B",
+      "Status": "PASS"
+    },
+    {
+      "File": "README.md",
+      "OriginalHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "BackupHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "RestoredHash": "A929B1BD2049A23A648FB91B3C7FA46140634A8112B3867394FC3A0C6F7361C7",
+      "Status": "PASS"
+    },
+    {
+      "File": "config\\settings.ini",
+      "OriginalHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "BackupHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "RestoredHash": "DA2859EB8E86734CBA6A0FF136802A2BD1B0ED8388AFD36D9613DA24C94E7C98",
+      "Status": "PASS"
+    }
+  ]
+}

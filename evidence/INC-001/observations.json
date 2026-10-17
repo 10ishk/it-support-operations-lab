@@ -1,0 +1,57 @@
+{
+  "StartedAt": "2026-10-17",
+  "FinishedAt": "2026-10-17",
+  "Mode": "Controlled nonexistent-name query; adapter DNS unchanged",
+  "FailureTarget": "support-lab.invalid",
+  "FailureObserved": true,
+  "FailureId": "DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName",
+  "ComparisonTarget": "github.com",
+  "ValidARecordCount": 1,
+  "PublicProbeReplyCount": 1,
+  "NativeTcp443Succeeded": true,
+  "FailingTargetChecks": [
+    {
+      "Name": "Adapter Configuration",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Default Gateway",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Internet Connectivity",
+      "Status": "PASS"
+    },
+    {
+      "Name": "DNS Resolution",
+      "Status": "FAIL"
+    },
+    {
+      "Name": "TCP 443",
+      "Status": "UNAVAILABLE"
+    }
+  ],
+  "CorrectedTargetChecks": [
+    {
+      "Name": "Adapter Configuration",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Default Gateway",
+      "Status": "PASS"
+    },
+    {
+      "Name": "Internet Connectivity",
+      "Status": "PASS"
+    },
+    {
+      "Name": "DNS Resolution",
+      "Status": "PASS"
+    },
+    {
+      "Name": "TCP 443",
+      "Status": "PASS"
+    }
+  ],
+  "ConfigurationModified": false
+}

@@ -1,0 +1,51 @@
+{
+  "At": "2026-10-17",
+  "Before": [
+    {
+      "Scope": 4,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 3,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 0,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 1,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 2,
+      "ExecutionPolicy": 5
+    }
+  ],
+  "TemporaryProcessPolicy": "RemoteSigned",
+  "TemporaryProcessExitCode": 0,
+  "After": [
+    {
+      "Scope": 4,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 3,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 0,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 1,
+      "ExecutionPolicy": 5
+    },
+    {
+      "Scope": 2,
+      "ExecutionPolicy": 5
+    }
+  ],
+  "PersistentAndDefaultProcessStateUnchanged": true,
+  "Note": "The Windows PowerShell test invocation uses a process-only RemoteSigned override; no Set-ExecutionPolicy operation is performed."
+}
