@@ -26,7 +26,7 @@ try {
         }
     }
     $result = Invoke-Pester -Path (Join-Path $root 'tests') -PassThru
-    if ($result.FailedCount -gt 0 -or $result.PassedCount -lt 12) { throw 'Tests failed or not discovered.' }
+    if ($result.FailedCount -gt 0 -or $result.PassedCount -lt 16) { throw 'Tests failed or not discovered.' }
     Write-Host "Syntax, relative Markdown links, and $($result.PassedCount) tests passed on PowerShell $($PSVersionTable.PSVersion)."
     if ($Live) {
         $run = & .\scripts\Invoke-SupportDiagnostics.ps1 -Full -Redact -MaxEvents 5

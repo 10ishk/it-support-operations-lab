@@ -21,7 +21,11 @@ Development validation is performed on Windows using the included `tests/Invoke-
 
 The 5.1 run exposed an inaccessible process CPU-time field during development. Collection now tolerates unavailable per-process metrics instead of discarding the entire process list. HTML tests accept either HTML entity escaping or the 5.1 JSON serializer's Unicode escaping. No actual machine values or event messages are reproduced here.
 
-## Reproduce
+## Controlled execution follow-up on 2026-10-17
+
+The evidence run added four consistency tests. The validation runner passed with **16 passed, 0 failed** on Windows PowerShell 5.1 and PowerShell 7 using Pester 3. Syntax and relative links also passed. See [actual summaries](../evidence/validation-summary.json), [execution results](EXECUTION-RESULTS.md) and [cleanup](../evidence/cleanup-verification.json). These checks validate selected evidence consistency; they do not independently authenticate its acquisition.
+
+## Reproduce the current validation
 
 ```powershell
 .\tests\Invoke-Validation.ps1
@@ -35,4 +39,4 @@ The runner parses every PowerShell script, resolves repository-relative Markdown
 
 The focused tests exercise valid/mismatched/missing hashes, unavailable provider results, nested redaction, array/null preservation, unique directories, escaped HTML, caller-only path exclusion, nested/wildcard-like file names, unchanged inputs, later restore modification, empty sources, overlapping paths, copy errors and junction rejection. Test inputs are synthetic fixtures, never diagnostic evidence.
 
-Runtime observations do not prove behavior on every Windows build, permissions context, VPN/proxy environment or IPv6-only network. CI is configured to repeat tests with Pester 5 on both Windows shells. Guided fault exercises, VM rollback and screenshots must still be performed in the intended disposable VM. No fabricated evidence is substituted for those activities.
+Runtime observations do not prove behavior on every Windows build, permissions context, VPN/proxy environment or IPv6-only network. CI is configured to repeat tests with Pester 5 on both Windows shells. The linked follow-up records the restricted cases actually executed. Additional VM-specific fault injection needs a separately confirmed disposable environment, and screenshots still require manual capture. No fabricated evidence is substituted for those activities.

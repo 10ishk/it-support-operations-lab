@@ -25,14 +25,16 @@ The entry point prints statuses and a run path. JSON includes data and per-check
 
 ## Execute incidents
 
+The [recorded execution](EXECUTION-RESULTS.md) used restricted, non-destructive scenarios. Use `.\scripts\Invoke-ControlledLab.ps1` to repeat those scenarios. It appends marked audit events and replaces selected evidence, so preserve the dated reports first. Never disconnect the host or change service configuration to reproduce these records.
+
 Copy the [template](../templates/incident-template.md) to a new local record for each run. Fill dates, scope, environment, impact and actual observations. Keep the guided instructions and recorded results clearly distinguished.
 
 | Exercise | Action | Restore/cleanup |
 | --- | --- | --- |
 | [INC-001](../incidents/INC-001-dns-resolution.md) | Compare nonexistent and valid DNS names | No settings changed |
-| [INC-002](../incidents/INC-002-network-connectivity.md) | Disconnect only disposable VM virtual cable from local console | Reconnect original virtual network attachment; verify connectivity |
-| [INC-003](../incidents/INC-003-application-event-error.md) | Investigate existing events or document none found | No settings changed; preserve logs |
-| [INC-004](../incidents/INC-004-storage-performance.md) | Observe a normal task and resource activity | No prescribed configuration change |
+| [INC-002](../incidents/INC-002-network-connectivity.md) | Compare a bounded selected-destination TCP probe with healthy checks | No adapter or route change |
+| [INC-003](../incidents/INC-003-application-event-error.md) | Write clearly marked events through the existing provider and inspect actual EventData | No provider registration; preserve audit records |
+| [INC-004](../incidents/INC-004-storage-performance.md) | Measure the bounded three-second owned child and two MiB temporary file | Child exits; exact generated workload files removed in finally |
 | [INC-005](../incidents/INC-005-service-failure.md) | Observe service state/dependencies and events | No prescribed service change |
 | [INC-006](../incidents/INC-006-tcp-port-connectivity.md) | Start a loopback-only temporary listener and compare stopped state | Stop listener or close its process |
 | [INC-007](../incidents/INC-007-backup-restore.md) | Copy and restore disposable lab files | Originals untouched; retain or manually remove identified run folder |

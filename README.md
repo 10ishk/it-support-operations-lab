@@ -2,7 +2,7 @@
 
 A PowerShell toolkit and practical lab for investigating Windows workstation issues, preserving evidence, and verifying recovery. It combines read-only diagnostics, isolated backup/restore tests, guided incident exercises and a concise troubleshooting knowledge base.
 
-No captured workstation evidence ships with the project. Incident files are unexecuted exercises with fields for actual observations. Screenshots and diagnostic results must come from your own runs.
+Selected sanitized evidence from actual controlled execution is available under [evidence/](evidence/README.md). Incident reports distinguish deliberate conditions, verified observations and limits. Raw workstation reports and backup copies remain ignored. No screenshots or diagnostic results were fabricated.
 
 ```mermaid
 flowchart TD
@@ -76,9 +76,10 @@ Diagnostic findings are returned without exiting the calling shell. Use `-FailOn
 ## Repository layout
 
 ```text
-scripts/           Entry point, system/network/backup collectors, Private helpers
+scripts/           Entry point, collectors, restricted scenario runner, Private helpers
 reports/           Ignored run outputs; tracked guidance and sample contract
-incidents/         Eight guided exercises; no claimed incident evidence
+incidents/         Eight executed case reports, including a service observation fallback
+evidence/          Selected sanitized measurements, commands and cleanup verification
 knowledge-base/    Six troubleshooting articles
 templates/         Reusable incident record
 lab-data/          Harmless text, CSV and INI backup inputs
@@ -90,7 +91,15 @@ tests/             Pester logic and backup safety tests
 
 ## Incident lab and knowledge base
 
-Start with the [lab guide](docs/LAB-GUIDE.md) and [methodology](docs/TROUBLESHOOTING-WORKFLOW.md). Choose an [incident exercise](incidents/README.md), copy the [template](templates/incident-template.md), run the prescribed observations and record actual evidence. Use the [screenshot checklist](docs/SCREENSHOT-CHECKLIST.md) after collecting real results.
+Start with the [lab guide](docs/LAB-GUIDE.md) and [methodology](docs/TROUBLESHOOTING-WORKFLOW.md). Review the [executed incidents](incidents/README.md), copy the [template](templates/incident-template.md) for a new run, and record your own actual evidence. Use the [screenshot checklist](docs/SCREENSHOT-CHECKLIST.md) after collecting real results.
+
+## Lab Execution
+
+Controlled scenarios were executed on Windows using isolated temporary resources and copied files. Execution was restricted to non-destructive simulation using isolated temporary resources. Baseline warnings were retained.
+
+[DNS](incidents/INC-001-dns-resolution.md), [destination connectivity](incidents/INC-002-network-connectivity.md), [marked events](incidents/INC-003-application-event-error.md), [bounded performance](incidents/INC-004-storage-performance.md), [service observation](incidents/INC-005-service-failure.md), [loopback TCP recovery](incidents/INC-006-tcp-port-connectivity.md), [backup](incidents/INC-007-backup-restore.md) and [integrity repair](incidents/INC-008-file-integrity.md) contain actual observations. The service case did not induce or prove a service failure.
+
+See [execution results](docs/EXECUTION-RESULTS.md), [selected evidence](evidence/README.md), [cleanup verification](evidence/cleanup-verification.json) and [screenshot limitations](screenshots/AUTOMATION-NOTES.md). Reproduce with `.\scripts\Invoke-ControlledLab.ps1`; it creates real marked audit events and local disposable resources, and replaces selected evidence on rerun. Review and preserve dated reports before running again.
 
 Knowledge base: [DNS](knowledge-base/KB001-dns-troubleshooting.md), [connectivity](knowledge-base/KB002-network-connectivity.md), [events](knowledge-base/KB003-windows-event-logs.md), [performance](knowledge-base/KB004-performance-troubleshooting.md), [services](knowledge-base/KB005-windows-services.md), [backup/integrity](knowledge-base/KB006-backup-integrity.md).
 
