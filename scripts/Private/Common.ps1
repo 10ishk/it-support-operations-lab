@@ -80,7 +80,8 @@ function Protect-LabObject {
 function Write-LabReport {
     param($Report, [string]$Directory, [string]$Name)
     New-Item -ItemType Directory -Path $Directory -Force -ErrorAction Stop | Out-Null
-    $Report | ConvertTo-Json -Depth 30 | Set-Content -LiteralPath (Join-Path $Directory "$Name.json") -Encoding UTF8
+    [pscustomobject]@{ GeneratedAt=$Report.GeneratedAt; Checks=$Report.Checks } | ConvertTo-Json -Depth 30 |
+        Set-Content -LiteralPath (Join-Path $Directory "$Name.json") -Encoding UTF8
     $lines = @("Generated: $($Report.GeneratedAt)", '')
     foreach ($check in $Report.Checks) {
         $lines += '{0,-28} {1}' -f $check.Name, $check.Status

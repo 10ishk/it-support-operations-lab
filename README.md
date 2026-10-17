@@ -119,6 +119,8 @@ Reports and screenshots are ignored by default. Add only selected reviewed evide
 
 ```powershell
 Invoke-Pester -Path .\tests
+# Syntax, links and tests together:
+.\tests\Invoke-Validation.ps1
 ```
 
 Tests cover recursive redaction, hash matching, HTML escaping, unique directories, real backup/restore with nested inputs, mismatch detection, empty source rejection, overlapping paths and reparse-point rejection. Pester is a development dependency, not required to use the toolkit. If absent, install it from a trusted PowerShell repository according to local policy. CI installs Pester 5 and runs on both Windows shells. See [validation notes](docs/VALIDATION.md) for checks actually run during development and their limits.

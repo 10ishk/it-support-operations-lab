@@ -1,5 +1,5 @@
 #requires -Version 5.1
-<#+
+<#
 .SYNOPSIS
 Run selected Windows support checks and produce local TXT, JSON, CSV and HTML reports.
 .DESCRIPTION
@@ -28,7 +28,7 @@ $label = if ($Redact) { 'REDACTED' } else { $env:COMPUTERNAME }
 $directory = New-LabRunDirectory $OutputDirectory $label
 $reports = @()
 if ($System -or $Events -or $Services) {
-    $scope = if ($System -or ($Events -and $Services)) { 'All' } elseif ($Events) { 'Events' } else { 'Services' }
+    $scope = if ($System) { 'All' } elseif ($Events -and $Services) { 'EventsAndServices' } elseif ($Events) { 'Events' } else { 'Services' }
     $health = & "$PSScriptRoot\Invoke-SystemHealth.ps1" -Hours $Hours -TopProcesses $TopProcesses -MaxEvents $MaxEvents -Scope $scope -Redact:$Redact -OutputDirectory $directory
     $reports += $health
     $eventChecks = @($health.Checks | Where-Object Name -like 'Event Logs*')

@@ -1,5 +1,5 @@
 #requires -Version 5.1
-<#+
+<#
 .SYNOPSIS
 Collect local Windows health, event and service evidence without changing configuration.
 .DESCRIPTION
@@ -11,7 +11,7 @@ param(
     [ValidateRange(1,100)][int]$TopProcesses = 10,
     [ValidateRange(1,5000)][int]$MaxEvents = 100,
     [string]$OutputDirectory,
-    [ValidateSet('All','Events','Services')][string]$Scope = 'All',
+    [ValidateSet('All','Events','Services','EventsAndServices')][string]$Scope = 'All',
     [switch]$Redact
 )
 . "$PSScriptRoot\Private\Common.ps1"
@@ -48,9 +48,15 @@ if ($Scope -eq 'All') {
         New-LabCheck 'Storage' $status $disks 'Mounted local fixed volumes; WARNING below 15% free. No disk latency measurement.'
     }
     $checks += Invoke-LabCheck 'Processes' {
-        $processes = @(Get-Process -ErrorAction Stop)
+        $processes = @(Get-Process -ErrorAction Stop | ForEach-Object {
+            $cpuSeconds = $null; $workingSet = $null
+            # Protected/exited processes can expose a null TotalProcessorTime in Windows PowerShell.
+            try { $cpuSeconds = $_.TotalProcessorTime.TotalSeconds } catch { }
+            try { $workingSet = $_.WorkingSet64 } catch { }
+            [pscustomobject]@{ Id=$_.Id; ProcessName=$_.ProcessName; CPUSeconds=$cpuSeconds; WorkingSet64=$workingSet }
+        })
         New-LabCheck 'Processes' INFO ([pscustomobject]@{
-            ByCpuSeconds = @($processes | Sort-Object CPU -Descending | Select-Object -First $TopProcesses Id,ProcessName,CPU)
+            ByCpuSeconds = @($processes | Sort-Object CPUSeconds -Descending | Select-Object -First $TopProcesses Id,ProcessName,CPUSeconds)
             ByWorkingSet = @($processes | Sort-Object WorkingSet64 -Descending | Select-Object -First $TopProcesses Id,ProcessName,WorkingSet64)
         }) 'CPU is cumulative seconds since process start; protected process fields may be null.'
     }
@@ -58,7 +64,7 @@ if ($Scope -eq 'All') {
         New-LabCheck 'Network Adapter Status' INFO @(Get-NetAdapter -ErrorAction Stop | Select-Object Name,InterfaceDescription,Status,LinkSpeed,MacAddress)
     }
 }
-if ($Scope -in @('All','Services')) {
+if ($Scope -in @('All','Services','EventsAndServices')) {
     $checks += Invoke-LabCheck 'Services' {
         $services = @(Get-CimInstance Win32_Service -Filter "StartMode='Auto' AND State<>'Running'" -ErrorAction Stop | Select-Object Name,DisplayName,State,StartMode,ExitCode)
         $status = if ($services.Count) { 'WARNING' } else { 'PASS' }
@@ -69,7 +75,7 @@ if ($Scope -in @('All','Services')) {
         New-LabCheck 'Windows Update Service' INFO $service 'Service state alone does not establish update compliance.'
     }
 }
-if ($Scope -in @('All','Events')) {
+if ($Scope -in @('All','Events','EventsAndServices')) {
     foreach ($log in @('System','Application')) {
         $checks += Invoke-LabCheck "Event Logs - $log" {
             try {

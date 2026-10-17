@@ -1,5 +1,5 @@
 #requires -Version 5.1
-<#+
+<#
 .SYNOPSIS
 Copy lab inputs into unique backup/restore directories and compare three SHA-256 digests.
 .DESCRIPTION

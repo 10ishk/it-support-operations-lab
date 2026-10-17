@@ -1,5 +1,5 @@
 #requires -Version 5.1
-<#+
+<#
 .SYNOPSIS
 Check local network configuration, ICMP reachability, DNS and TCP connections.
 .DESCRIPTION

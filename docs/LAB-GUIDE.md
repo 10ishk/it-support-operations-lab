@@ -4,7 +4,7 @@
 
 Use an appropriately licensed Windows 11 installation in a disposable VM with enough CPU, memory and disk for ordinary desktop use. Hyper-V, VMware or VirtualBox are optional examples; no particular hypervisor is required. Use a local account and a NAT-style virtual network if suitable. Record VM resources and network mode. Take a baseline snapshot where supported. Do not use production data or require domain/enterprise services.
 
-Copy/clone the repository into the VM. Open Windows PowerShell 5.1 or PowerShell 7 at the repository root and record `$PSVersionTable`. Native Windows networking/CIM modules must be available. Start unelevated; only retry denied collection with elevation if appropriate for your VM. The toolkit never silently elevates.
+Copy/clone the repository into the VM. Open Windows PowerShell 5.1 or PowerShell 7 at the repository root and record `$PSVersionTable`. Native Windows networking/CIM modules must be available. Start as a normal user; only retry denied collection with elevated access if appropriate for your VM. Elevated access is optional and must be initiated by the operator.
 
 ## Execution requirements
 
