@@ -1,0 +1,2 @@
+Support lab test input.
+Change a disposable copy to investigate a hash mismatch.
